@@ -1,0 +1,12 @@
+---
+layout: default
+---
+{% if site.description %}<p class="bio">{{ site.description }}</p>{% endif %}
+{% if site.posts.size == 0 %}<p style="color:var(--muted);">هنوز نوشته‌ای منتشر نشده.</p>{% endif %}
+{% for post in site.posts %}
+<a class="post-item" href="{{ post.url | relative_url }}">
+  <h2>{{ post.title }}</h2>
+  <div class="post-meta"><span>{{ post.date | date: "%Y-%m-%d" }}</span>{% if post.tags.size > 0 %}<span>{{ post.tags | join: " · " }}</span>{% endif %}</div>
+  {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+</a>
+{% endfor %}
