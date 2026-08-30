@@ -1,0 +1,19 @@
+---
+layout: default
+title: برچسب‌ها
+permalink: /tags/
+---
+<article class="entry">
+  <h1>برچسب‌ها</h1>
+  <p class="lead">{{ site.tags.size }} برچسب در این وبلاگ.</p>
+  <div class="chips">{% for t in site.tags %}<a href="#{{ t[0] | slugify }}">{{ t[0] }} · {{ t[1].size }}</a>{% endfor %}</div>
+  {% for t in site.tags %}
+  <div class="yearhead" id="{{ t[0] | slugify }}" style="scroll-margin-top:80px;"><b>{{ t[0] }}</b><i></i></div>
+  {% for post in t[1] %}
+  <a class="post-item" href="{{ post.url | relative_url }}">
+    <span class="num">{{ post.date | date: "%Y" }}</span>
+    <span><h2>{{ post.title }}</h2></span>
+  </a>
+  {% endfor %}
+  {% endfor %}
+</article>
