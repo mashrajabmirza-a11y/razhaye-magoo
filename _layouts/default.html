@@ -7,18 +7,20 @@
 <meta name="description" content="{{ page.description | default: site.description }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
+{% if site.font_body_url %}@font-face{font-family:"SiteBody";src:url("{{ site.font_body_url | relative_url }}");font-display:swap;}{% endif %}
+{% if site.font_head_url %}@font-face{font-family:"SiteHead";src:url("{{ site.font_head_url | relative_url }}");font-display:swap;}{% endif %}
 *{box-sizing:border-box;}
 :root{--paper:oklch(98.5% 0.004 265);--ink:oklch(24% 0.012 265);--muted:oklch(52% 0.015 265);--faint:oklch(66% 0.012 265);--line:oklch(91% 0.008 265);--accent:oklch(50% 0.15 262);--card:oklch(100% 0 0);}
 html{-webkit-text-size-adjust:100%;}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Vazirmatn',system-ui,sans-serif;font-size:17px;line-height:2;text-align:right;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:{% if site.font_body_url %}'SiteBody',{% endif %}'Vazirmatn',system-ui,sans-serif;font-size:17px;line-height:2;text-align:right;}
 a{color:var(--accent);text-decoration:none;}
 a:hover{text-decoration:underline;text-underline-offset:3px;}
 .wrap{max-width:1040px;margin:0 auto;padding:0 22px;}
 .topbanner{display:block;width:100%;height:230px;object-fit:cover;}
 .topbanner-ph{height:150px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(135deg,var(--line) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;}
-.topbanner-ph span{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted);background:var(--paper);border-radius:8px;padding:6px 12px;}
+.topbanner-ph span{font-size:12.5px;color:var(--muted);background:var(--paper);border-radius:8px;padding:6px 12px;}
 .shell{max-width:1040px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:48px;align-items:start;}
 main.col{min-width:0;padding:0 0 72px;}
 aside.side{position:sticky;top:24px;padding:46px 26px 40px 0;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:26px;}
@@ -43,9 +45,6 @@ main.wrap{padding-top:0;padding-bottom:72px;}
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:22px;}
 .chips a{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 13px;}
 .chips a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;}
-.banner{width:100%;height:auto;border-radius:16px;display:block;margin:0 0 40px;}
-.banner-ph{height:180px;border-radius:16px;margin:0 0 40px;border:1px solid var(--line);background:repeating-linear-gradient(135deg,var(--line) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;}
-.banner-ph span{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted);background:var(--paper);border-radius:8px;padding:6px 12px;}
 .feat{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 10px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
 .feat:hover{transform:translateY(-2px);box-shadow:0 12px 30px oklch(24% 0.02 265 / .07);border-color:oklch(84% 0.02 265);text-decoration:none;}
 .feat .kicker{display:block;font-size:12px;color:var(--accent);margin-bottom:10px;}
@@ -84,9 +83,31 @@ main.wrap{padding-top:0;padding-bottom:72px;}
 .back{display:inline-block;margin-top:40px;font-size:14.5px;}
 .site-foot{border-top:1px solid var(--line);background:var(--card);}
 .site-foot .wrap{padding:22px;font-size:13px;color:var(--faint);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+::selection{background:oklch(93% 0.04 262);}
+h1,h2,h3,.brand,.side h4{font-family:{% if site.font_head_url %}'SiteHead',{% endif %}'Noto Naskh Arabic',serif;font-weight:600;}
+.progress{position:fixed;top:0;right:0;height:2px;background:var(--accent);width:0;z-index:50;}
+.entry h1{font-size:34px;line-height:1.5;letter-spacing:-.01em;}
+.entry .lead{font-size:17px;color:var(--muted);line-height:1.95;margin:0 0 26px;max-width:60ch;}
+.entry .kicker{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--faint);margin-bottom:14px;}
+.entry .body{max-width:66ch;font-size:18.5px;line-height:2.12;}
+.entry .body>p:first-of-type{font-size:1.05em;color:var(--ink);}
+.entry .body a{border-bottom:1px solid oklch(84% 0.06 262);}
+.entry .body a:hover{border-color:var(--accent);text-decoration:none;}
+.entry .body blockquote{font-family:'Noto Naskh Arabic',serif;font-size:1.06em;color:var(--ink);background:var(--card);border-right:2px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 20px;margin:1.8em 0;}
+.entry .body figcaption,.entry .body img+em{display:block;text-align:center;font-size:13.5px;color:var(--faint);font-style:normal;margin:-8px 0 1.6em;}
+.postnav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:52px;padding-top:26px;border-top:1px solid var(--line);}
+.postnav a{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+.postnav a:hover{border-color:var(--accent);text-decoration:none;}
+.postnav span{display:block;font-size:11.5px;color:var(--faint);margin-bottom:5px;}
+.postnav strong{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.6;display:block;}
+.yearhead{display:flex;align-items:center;gap:14px;margin:40px 0 2px;}
+.yearhead b{font-size:13px;color:var(--faint);font-weight:600;}
+.yearhead i{flex:1;height:1px;background:var(--line);}
+@media(max-width:640px){.hero h1{font-size:31px;}.entry h1{font-size:27px;}.entry .body{font-size:17.5px;}.postnav{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
+<div class="progress"></div>
 {% if site.banner %}
 <img class="topbanner" src="{{ site.banner | relative_url }}" alt="{{ site.title }}">
 {% else %}
@@ -111,5 +132,6 @@ main.wrap{padding-top:0;padding-bottom:72px;}
 <span>{{ site.title }}{% if site.author %} — {{ site.author }}{% endif %}</span>
 <span>{{ site.time | date: "%Y" }}</span>
 </div></footer>
+<script>(function(){var b=document.querySelector('.progress');if(!b)return;function u(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;b.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}addEventListener('scroll',u,{passive:true});u();})();</script>
 </body>
 </html>
