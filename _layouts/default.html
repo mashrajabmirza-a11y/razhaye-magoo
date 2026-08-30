@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+:root{--paper:oklch(98.5% 0.004 265);--ink:oklch(24% 0.012 265);--muted:oklch(52% 0.015 265);--faint:oklch(66% 0.012 265);--line:oklch(91% 0.008 265);--accent:oklch(50% 0.15 262);--card:oklch(100% 0 0);}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Vazirmatn',system-ui,sans-serif;font-size:17px;line-height:2;text-align:right;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:3px;}
+.wrap{max-width:680px;margin:0 auto;padding:0 22px;}
+.site-head{border-bottom:1px solid var(--line);background:var(--card);}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 22px;flex-wrap:wrap;}
+.brand{font-size:19px;font-weight:700;color:var(--ink);}
+.brand:hover{text-decoration:none;color:var(--accent);}
+.nav{display:flex;gap:20px;flex-wrap:wrap;}
+.nav a{font-size:14.5px;color:var(--muted);}
+main.wrap{padding-top:44px;padding-bottom:72px;}
+.bio{color:var(--muted);font-size:15.5px;line-height:1.95;margin:0 0 40px;padding-bottom:28px;border-bottom:1px solid var(--line);}
+.post-item{display:block;padding:22px 0;border-bottom:1px solid var(--line);}
+.post-item:hover{text-decoration:none;}
+.post-item h2{margin:0 0 5px;font-size:20px;font-weight:600;color:var(--ink);line-height:1.6;}
+.post-item:hover h2{color:var(--accent);}
+.post-meta{font-size:13px;color:var(--faint);display:flex;gap:10px;flex-wrap:wrap;}
+.post-item p{margin:8px 0 0;font-size:15px;color:var(--muted);line-height:1.9;}
+.entry h1{font-size:29px;line-height:1.5;margin:0 0 10px;font-weight:700;}
+.entry .post-meta{margin-bottom:34px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+.entry .body{font-size:17.5px;line-height:2.05;}
+.entry .body>*:first-child{margin-top:0;}
+.entry .body h2{font-size:22px;line-height:1.6;margin:1.9em 0 .5em;font-weight:600;}
+.entry .body h3{font-size:19px;line-height:1.6;margin:1.7em 0 .5em;font-weight:600;}
+.entry .body p{margin:0 0 1.15em;}
+.entry .body img,.entry .body video{max-width:100%;height:auto;border-radius:12px;display:block;margin:1.6em auto;}
+.entry .body blockquote{margin:1.6em 0;padding:2px 18px;border-right:3px solid var(--accent);color:var(--muted);}
+.entry .body ul,.entry .body ol{margin:0 0 1.15em;padding-right:1.5em;}
+.entry .body li{margin-bottom:.4em;}
+.entry .body hr{border:none;border-top:1px solid var(--line);margin:2.4em 0;}
+.entry .body code{background:oklch(95% 0.03 262);color:var(--accent);border-radius:5px;padding:.1em .4em;font-size:.86em;}
+.entry .body pre{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;direction:ltr;text-align:left;}
+.entry .body pre code{background:none;color:var(--ink);padding:0;font-size:14px;line-height:1.8;}
+.entry .body table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:15.5px;}
+.entry .body th,.entry .body td{border:1px solid var(--line);padding:8px 12px;text-align:right;}
+.entry .body th{background:var(--card);font-weight:600;}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:34px;}
+.tags span{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;}
+.back{display:inline-block;margin-top:40px;font-size:14.5px;}
+.site-foot{border-top:1px solid var(--line);background:var(--card);}
+.site-foot .wrap{padding:22px;font-size:13px;color:var(--faint);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+{% if site.data.nav %}<nav class="nav">{% for item in site.data.nav %}<a href="{{ item.url | relative_url }}">{{ item.title }}</a>{% endfor %}</nav>{% endif %}
+</div></header>
+<main class="wrap">
+{{ content }}
+</main>
+<footer class="site-foot"><div class="wrap">
+<span>{{ site.title }}{% if site.author %} — {{ site.author }}{% endif %}</span>
+<span>{{ site.time | date: "%Y" }}</span>
+</div></footer>
+</body>
+</html>
