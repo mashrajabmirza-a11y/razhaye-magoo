@@ -15,7 +15,19 @@ html{-webkit-text-size-adjust:100%;}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'Vazirmatn',system-ui,sans-serif;font-size:17px;line-height:2;text-align:right;}
 a{color:var(--accent);text-decoration:none;}
 a:hover{text-decoration:underline;text-underline-offset:3px;}
-.wrap{max-width:680px;margin:0 auto;padding:0 22px;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px;}
+.topbanner{display:block;width:100%;height:230px;object-fit:cover;}
+.topbanner-ph{height:150px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(135deg,var(--line) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;}
+.topbanner-ph span{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted);background:var(--paper);border-radius:8px;padding:6px 12px;}
+.shell{max-width:1040px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:48px;align-items:start;}
+main.col{min-width:0;padding:0 0 72px;}
+aside.side{position:sticky;top:24px;padding:46px 26px 40px 0;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:26px;}
+.side h4{font-size:12px;color:var(--faint);margin:0 0 10px;font-weight:600;}
+.side a{display:block;font-size:14px;color:var(--muted);padding:4px 0;}
+.side a:hover{color:var(--accent);text-decoration:none;}
+.side .about{font-size:13.5px;color:var(--muted);line-height:1.9;}
+.side .chips{margin-top:0;}
+@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr);gap:0;}aside.side{position:static;border-right:none;padding:28px 0 40px;border-top:1px solid var(--line);}.topbanner{height:170px;}}
 .site-head{border-bottom:1px solid var(--line);background:var(--card);}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 22px;flex-wrap:wrap;}
 .brand{font-size:19px;font-weight:700;color:var(--ink);}
@@ -75,13 +87,26 @@ main.wrap{padding-top:0;padding-bottom:72px;}
 </style>
 </head>
 <body>
+{% if site.banner %}
+<img class="topbanner" src="{{ site.banner | relative_url }}" alt="{{ site.title }}">
+{% else %}
+<div class="topbanner-ph"><span>بنر سایت — در تنظیمات، banner را به یک تصویر بده</span></div>
+{% endif %}
 <header class="site-head"><div class="wrap">
 <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 {% if site.data.nav %}<nav class="nav">{% for item in site.data.nav %}<a href="{{ item.url | relative_url }}">{{ item.title }}</a>{% endfor %}</nav>{% endif %}
 </div></header>
-<main class="wrap">
+<div class="shell">
+<main class="col">
 {{ content }}
 </main>
+<aside class="side">
+  <div><h4>درباره</h4><p class="about">{{ site.description }}{% if site.author %}<br>— {{ site.author }}{% endif %}</p></div>
+  {% if site.data.nav %}<div><h4>صفحه‌ها</h4>{% for item in site.data.nav %}<a href="{{ item.url | relative_url }}">{{ item.title }}</a>{% endfor %}</div>{% endif %}
+  {% if site.posts.size > 0 %}<div><h4>تازه‌ها</h4>{% for post in site.posts limit: 5 %}<a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% endfor %}</div>{% endif %}
+  {% if site.tags.size > 0 %}<div><h4>برچسب‌ها</h4><div class="chips">{% for t in site.tags limit: 8 %}<a href="{{ '/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a>{% endfor %}</div></div>{% endif %}
+</aside>
+</div>
 <footer class="site-foot"><div class="wrap">
 <span>{{ site.title }}{% if site.author %} — {{ site.author }}{% endif %}</span>
 <span>{{ site.time | date: "%Y" }}</span>
