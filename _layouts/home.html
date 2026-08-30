@@ -1,12 +1,41 @@
 ---
 layout: default
 ---
-{% if site.description %}<p class="bio">{{ site.description }}</p>{% endif %}
+<section class="hero">
+  <div class="rule"></div>
+  <h1>{{ site.title }}</h1>
+  {% if site.description %}<p class="lead">{{ site.description }}</p>{% endif %}
+  <div class="facts">
+    <span>{{ site.posts.size }} نوشته</span>
+    {% if site.posts.first %}<span>آخرین به‌روزرسانی {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>{% endif %}
+    {% if site.author %}<span>{{ site.author }}</span>{% endif %}
+  </div>
+  {% if site.tags.size > 0 %}<div class="chips">{% for t in site.tags limit: 7 %}<a href="{{ '/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a>{% endfor %}</div>{% endif %}
+</section>
+{% if site.banner %}
+<img class="banner" src="{{ site.banner | relative_url }}" alt="{{ site.title }}">
+{% else %}
+<div class="banner-ph"><span>بنر سایت — در تنظیمات، banner را به یک تصویر بده</span></div>
+{% endif %}
 {% if site.posts.size == 0 %}<p style="color:var(--muted);">هنوز نوشته‌ای منتشر نشده.</p>{% endif %}
-{% for post in site.posts %}
-<a class="post-item" href="{{ post.url | relative_url }}">
+{% for post in site.posts limit: 1 %}
+<a class="feat" href="{{ post.url | relative_url }}">
+  <span class="kicker">تازه‌ترین نوشته</span>
   <h2>{{ post.title }}</h2>
   <div class="post-meta"><span>{{ post.date | date: "%Y-%m-%d" }}</span>{% if post.tags.size > 0 %}<span>{{ post.tags | join: " · " }}</span>{% endif %}</div>
   {% if post.description %}<p>{{ post.description }}</p>{% endif %}
 </a>
 {% endfor %}
+{% if site.posts.size > 1 %}
+<div class="list-head"><span>نوشته‌های پیشین</span><span>{{ site.posts.size | minus: 1 }} مورد</span></div>
+{% for post in site.posts offset: 1 %}
+<a class="post-item" href="{{ post.url | relative_url }}">
+  <span class="num">{{ forloop.index | plus: 1 }}</span>
+  <span>
+    <h2>{{ post.title }}</h2>
+    <span class="post-meta"><span>{{ post.date | date: "%Y-%m-%d" }}</span>{% if post.tags.size > 0 %}<span>{{ post.tags | join: " · " }}</span>{% endif %}</span>
+    {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+  </span>
+</a>
+{% endfor %}
+{% endif %}
