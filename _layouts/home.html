@@ -10,9 +10,13 @@ layout: default
     {% if site.posts.first %}<span>آخرین به‌روزرسانی {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>{% endif %}
     {% if site.author %}<span>{{ site.author }}</span>{% endif %}
   </div>
-  {% if site.tags.size > 0 %}<div class="chips">{% for t in site.tags limit: 7 %}<a href="{{ '/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a>{% endfor %}</div>{% endif %}
+  {% if site.tags.size > 0 %}
+  <div class="chips">{% for t in site.tags limit: 7 %}<a href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a>{% endfor %}</div>
+  {% endif %}
 </section>
+
 {% if site.posts.size == 0 %}<p style="color:var(--muted);">هنوز نوشته‌ای منتشر نشده.</p>{% endif %}
+
 {% for post in site.posts limit: 1 %}
 <a class="feat" href="{{ post.url | relative_url }}">
   <span class="kicker">تازه‌ترین نوشته</span>
@@ -21,6 +25,7 @@ layout: default
   {% if post.description %}<p>{{ post.description }}</p>{% endif %}
 </a>
 {% endfor %}
+
 {% if site.posts.size > 1 %}
 <div class="list-head"><span>نوشته‌های پیشین</span><span>{{ site.posts.size | minus: 1 }} مورد</span></div>
 {% assign shownyear = '' %}
