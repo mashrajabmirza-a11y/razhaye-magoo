@@ -1,0 +1,21 @@
+---
+layout: default
+title: آرشیو نوشته‌ها
+permalink: /archive/
+---
+<article class="entry">
+  <h1>آرشیو نوشته‌ها</h1>
+  <p class="lead">{{ site.posts.size }} نوشته، از تازه به قدیم.</p>
+  {% assign yr = '' %}
+  {% for post in site.posts %}
+  {% assign py = post.date | date: "%Y" %}
+  {% if py != yr %}{% assign yr = py %}<div class="yearhead"><b>{{ py }}</b><i></i></div>{% endif %}
+  <a class="post-item" href="{{ post.url | relative_url }}">
+    <span class="num">{{ post.date | date: "%m/%d" }}</span>
+    <span>
+      <h2>{{ post.title }}</h2>
+      {% if post.tags.size > 0 %}<span class="post-meta"><span>{{ post.tags | join: " · " }}</span></span>{% endif %}
+    </span>
+  </a>
+  {% endfor %}
+</article>
