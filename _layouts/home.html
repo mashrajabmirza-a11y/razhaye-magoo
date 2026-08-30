@@ -23,7 +23,10 @@ layout: default
 {% endfor %}
 {% if site.posts.size > 1 %}
 <div class="list-head"><span>نوشته‌های پیشین</span><span>{{ site.posts.size | minus: 1 }} مورد</span></div>
+{% assign shownyear = '' %}
 {% for post in site.posts offset: 1 %}
+{% assign py = post.date | date: "%Y" %}
+{% if py != shownyear %}{% assign shownyear = py %}<div class="yearhead"><b>{{ py }}</b><i></i></div>{% endif %}
 <a class="post-item" href="{{ post.url | relative_url }}">
   <span class="num">{{ forloop.index | plus: 1 }}</span>
   <span>
