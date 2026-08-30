@@ -1,0 +1,6 @@
+title: رازهای مگو
+description: وبلاگ شخصی
+lang: fa
+theme: minima
+plugins:
+  - jekyll-feed
