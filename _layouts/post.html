@@ -9,8 +9,29 @@ layout: default
   </div>
   <h1>{{ page.title }}</h1>
   {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+  <div id="tocSlot"></div>
   <div class="body">{{ content }}</div>
+
   {% if page.tags.size > 0 %}<div class="tags">{% for t in page.tags %}<span>{{ t }}</span>{% endfor %}</div>{% endif %}
+
+  <div class="share">
+    <span>هم‌رسانی</span>
+    <a class="iconbtn" href="https://t.me/share/url?url={{ page.url | absolute_url }}&text={{ page.title | uri_escape }}" target="_blank" rel="noopener">تلگرام</a>
+    <a class="iconbtn" href="https://wa.me/?text={{ page.title | uri_escape }}%20{{ page.url | absolute_url }}" target="_blank" rel="noopener">واتساپ</a>
+    <a class="iconbtn" href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url }}&text={{ page.title | uri_escape }}" target="_blank" rel="noopener">ایکس</a>
+  </div>
+
+  {% assign firstTag = page.tags | first %}
+  {% if firstTag %}{% assign related = site.tags[firstTag] | where_exp: "p", "p.url != page.url" %}{% endif %}
+  {% if related and related.size > 0 %}
+  <div class="related">
+    <h4>نوشته‌های مرتبط</h4>
+    <div class="related-grid">
+      {% for p in related limit: 3 %}<a href="{{ p.url | relative_url }}">{{ p.title }}<em>{{ p.date | date: "%Y-%m-%d" }}</em></a>{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="postnav">
     {% if page.next %}<a href="{{ page.next.url | relative_url }}"><span>نوشتهٔ بعدی</span><strong>{{ page.next.title }}</strong></a>{% endif %}
     {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span>نوشتهٔ پیشین</span><strong>{{ page.previous.title }}</strong></a>{% endif %}
