@@ -12,11 +12,6 @@ layout: default
   </div>
   {% if site.tags.size > 0 %}<div class="chips">{% for t in site.tags limit: 7 %}<a href="{{ '/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a>{% endfor %}</div>{% endif %}
 </section>
-{% if site.banner %}
-<img class="banner" src="{{ site.banner | relative_url }}" alt="{{ site.title }}">
-{% else %}
-<div class="banner-ph"><span>بنر سایت — در تنظیمات، banner را به یک تصویر بده</span></div>
-{% endif %}
 {% if site.posts.size == 0 %}<p style="color:var(--muted);">هنوز نوشته‌ای منتشر نشده.</p>{% endif %}
 {% for post in site.posts limit: 1 %}
 <a class="feat" href="{{ post.url | relative_url }}">
